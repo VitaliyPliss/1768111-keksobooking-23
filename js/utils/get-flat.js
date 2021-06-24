@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
-import {getRandomNumber} from './get-random-positive-integer.js';
-import {getRandomFloat} from './get-random-positive-float.js';
+import {getRandomPositiveInteger} from './get-random-positive-integer.js';
+import {getRandomPositiveFloat} from './get-random-positive-float.js';
 
 const FLAT_TITLES = ['Уютное место','Ламповая обстановка','Хороший вид'];
 const FLAT_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
@@ -9,8 +9,8 @@ const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'condit
 const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const SIMILAR_FLAT_COUNT = 10;
 
-const LOCATION_LAT = () => getRandomFloat(35.65, 35.7, 5);
-const LOCATION_LNG = () => getRandomFloat(139.7, 139.8, 5);
+const LOCATION_LAT = () => getRandomPositiveFloat(35.65, 35.7, 5);
+const LOCATION_LNG = () => getRandomPositiveFloat(139.7, 139.8, 5);
 
 // генератор массива со случайным количеством неповторяющихся элементов из другого массива
 const getArr = ([...source], maxLength) => Array.from(
@@ -23,22 +23,22 @@ const createFlat = () => {
   const ADDRESS_LNG = LOCATION_LNG();
   return({
     author: {
-      avatar: ((getRandomNumber(1,10) >= 10) ?
+      avatar: ((getRandomPositiveInteger(1,10) >= 10) ?
         ('img/avatars/user10.png')
         :
-        (`img/avatars/user0${getRandomNumber(1,9)}.png`)),
+        (`img/avatars/user0${getRandomPositiveInteger(1,9)}.png`)),
     },
     offer:{
-      title: FLAT_TITLES[getRandomNumber(0,2)],
+      title: FLAT_TITLES[getRandomPositiveInteger(0,2)],
       address: (`${ADDRESS_LAT}, ${ADDRESS_LNG}`),
-      price: getRandomNumber(5000,10000),
-      type: FLAT_TYPES[getRandomNumber(0,4)],
-      rooms: getRandomNumber(1,5),
-      guests: getRandomNumber(3,15),
-      checkin: CHECK_TIMES[getRandomNumber(0,2)],
-      checkout: CHECK_TIMES[getRandomNumber(0,2)],
+      price: getRandomPositiveInteger(5000,10000),
+      type: FLAT_TYPES[getRandomPositiveInteger(0,4)],
+      rooms: getRandomPositiveInteger(1,5),
+      guests: getRandomPositiveInteger(3,15),
+      checkin: CHECK_TIMES[getRandomPositiveInteger(0,2)],
+      checkout: CHECK_TIMES[getRandomPositiveInteger(0,2)],
       features: getArr(FEATURES, 6),
-      description: 'description',
+      description: 'example of description',
       photos: getArr(PHOTOS, 3),
     },
     location: {
@@ -47,7 +47,8 @@ const createFlat = () => {
     },
   });};
 
-const similarFlat = new Array(SIMILAR_FLAT_COUNT).fill(null).map(() => createFlat());
+const similarFlat = () => new Array(SIMILAR_FLAT_COUNT).fill(null).map(() => createFlat());
 // eslint-disable-next-line no-console
 
+export {createFlat};
 export {similarFlat};
