@@ -96,3 +96,5 @@ const createNewOffer = function (flat){
   popup.appendChild(copy);
 };
 createNewOffer(FIRST_OFFER);
+
+export {FIRST_OFFER};
