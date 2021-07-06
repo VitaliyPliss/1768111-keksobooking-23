@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable id-length */
-import { FIRST_OFFER } from './get-similar-flat.js';
+import { FIRST_OFFER } from './similar-flat-creating.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.getElementsByTagName('fieldset');
@@ -74,27 +74,11 @@ const timeIn = document.getElementById('timein');
 const timeOut = document.getElementById('timeout');
 
 timeIn.addEventListener('change', () => {
-  if (timeIn.value === '12:00') {
-    timeOut.value = '12:00';
-  }
-  if (timeIn.value === '13:00') {
-    timeOut.value = '13:00';
-  }
-  if (timeIn.value === '14:00') {
-    timeOut.value = '14:00';
-  }
+  timeOut.value = timeIn.value;
 });
 
 timeOut.addEventListener('change', () => {
-  if (timeOut.value === '12:00') {
-    timeIn.value = '12:00';
-  }
-  if (timeOut.value === '13:00') {
-    timeIn.value = '13:00';
-  }
-  if (timeOut.value === '14:00') {
-    timeIn.value = '14:00';
-  }
+  timeIn.value = timeOut.value;
 });
 
 const rooms = document.getElementById('room_number');

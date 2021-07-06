@@ -1,6 +1,6 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable id-length */
-import {similarFlat} from './get-flat.js';
+import {similarFlat} from './flat-creating.js';
 
 const popup = document.querySelector('#map-canvas');
 const template = document.querySelector('#card').content;

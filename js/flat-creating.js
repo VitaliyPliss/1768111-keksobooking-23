@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
-import {getRandomPositiveInteger} from './get-random-positive-integer.js';
-import {getRandomPositiveFloat} from './get-random-positive-float.js';
+import {getRandomPositiveInteger} from './utils.js';
+import {getRandomPositiveFloat} from './utils.js';
 
 const FLAT_TITLES = ['Уютное место','Ламповая обстановка','Хороший вид'];
 const FLAT_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
