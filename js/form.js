@@ -21,7 +21,6 @@ const getInactiveState = function () {
   }
 };
 
-
 const getActiveState = function () {
   //отображаем форму заполнения
   adForm.classList.remove('ad-form--disabled');
