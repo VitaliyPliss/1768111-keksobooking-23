@@ -1,6 +1,5 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable id-length */
-import { FIRST_OFFER } from './similar-flat-creating.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.getElementsByTagName('fieldset');
@@ -36,7 +35,7 @@ const getActiveState = function () {
 };
 
 getInactiveState();
-getActiveState();
+
 
 //валидация формы
 const flatType = document.getElementById('type');
@@ -67,7 +66,7 @@ flatType.addEventListener('change', () => {
 });
 
 const address = document.getElementById('address');
-address.value = FIRST_OFFER.offer.address;
+address.value = '35.68212, 139.73957';
 
 const timeIn = document.getElementById('timein');
 const timeOut = document.getElementById('timeout');
@@ -130,3 +129,6 @@ title.addEventListener('input', () => {
 
   title.reportValidity();
 });
+
+export {getActiveState};
+export {address};

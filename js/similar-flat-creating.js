@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 /* eslint-disable id-length */
 import {similarFlat} from './flat-creating.js';
@@ -93,8 +94,8 @@ const createNewOffer = function (flat){
       ELEMENTS[i].classList.add('hidden');
     }
   }
-  popup.appendChild(copy);
+  return copy;
 };
-createNewOffer(FIRST_OFFER);
 
-export {FIRST_OFFER};
+export{NEW_OFFER};
+export {createNewOffer};
