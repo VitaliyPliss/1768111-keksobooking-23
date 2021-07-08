@@ -4,7 +4,7 @@
 import {similarFlat} from './flat-creating.js';
 
 const popup = document.querySelector('#map-canvas');
-const template = document.querySelector('#card').content;
+const template = document.querySelector('#card').content.querySelector('.popup');
 const NEW_OFFER = similarFlat();
 const FIRST_OFFER = NEW_OFFER[0];
 const createNewOffer = function (flat){
