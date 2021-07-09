@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 /* eslint-disable id-length */
 import {similarFlat} from './flat-creating.js';
 
 const popup = document.querySelector('#map-canvas');
-const template = document.querySelector('#card').content;
+const template = document.querySelector('#card').content.querySelector('.popup');
 const NEW_OFFER = similarFlat();
 const FIRST_OFFER = NEW_OFFER[0];
 const createNewOffer = function (flat){
@@ -93,8 +94,8 @@ const createNewOffer = function (flat){
       ELEMENTS[i].classList.add('hidden');
     }
   }
-  popup.appendChild(copy);
+  return copy;
 };
-createNewOffer(FIRST_OFFER);
 
-export {FIRST_OFFER};
+export{NEW_OFFER};
+export {createNewOffer};
