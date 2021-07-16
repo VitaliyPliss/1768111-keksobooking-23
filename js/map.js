@@ -1,6 +1,5 @@
 /* eslint-disable no-redeclare */
 
-import {NEW_OFFER, createNewOffer} from './similar-flat-creating.js';
 import {getActiveState} from './form.js';
 import {address} from './form.js';
 
@@ -45,25 +44,5 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${evt.target.getLatLng().lat.toFixed(5)  }, ${  evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-const POINTS = NEW_OFFER;
-
-POINTS.forEach((point) => {
-  const {lat, lng} = point.location;
-  const icon = L.icon({
-    iconUrl: '../img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const marker = L.marker(
-    {
-      lat,
-      lng,
-    },
-    {
-      icon,
-    },
-  );
-
-  marker.addTo(map).bindPopup(createNewOffer(point));
-});
+export {map};
+export {mainPinMarker};
