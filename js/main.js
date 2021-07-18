@@ -12,7 +12,7 @@ getData((offers) => {
   OFFERS_COUNT.forEach((offer) => {
     const {lat, lng} = offer.location;
     const icon = L.icon({
-      iconUrl: '../img/pin.svg',
+      iconUrl: './img/pin.svg',
       iconSize: [40, 40],
       iconAnchor: [20, 40],
     });
