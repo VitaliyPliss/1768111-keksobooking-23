@@ -1,5 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable id-length */
+import { showAlert } from './utils.js';
+import { sendData } from './data.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.getElementsByTagName('fieldset');
@@ -130,5 +132,19 @@ title.addEventListener('input', () => {
   title.reportValidity();
 });
 
+const setUserFormSubmit = (onSuccess) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => showAlert(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+
+export {setUserFormSubmit};
 export {getActiveState};
 export {address};
