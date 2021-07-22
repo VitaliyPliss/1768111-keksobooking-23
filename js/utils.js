@@ -14,8 +14,11 @@ function getRandomPositiveFloat(min, max, symbols) {
     Number((Math.random() * (max - min) + min).toFixed(symbols));
 }
 
-getRandomPositiveInteger(1,2);
-getRandomPositiveFloat(1,2);
+// генератор массива со случайным количеством неповторяющихся элементов из другого массива
+const getRandomArrayElement = ([...source], maxLength) => Array.from(
+  { length: Math.min(source.length, 1 + Math.random() * maxLength | 0) },
+  () => source.splice(Math.random() * source.length | 0, 1)[0],
+);
 
 const setDefaultOptions = function () {
   mainPinMarker.setLatLng({
@@ -26,6 +29,7 @@ const setDefaultOptions = function () {
     lat: 35.68212,
     lng: 139.73957,
   }, 12);
+
   document.querySelector('#housing-type').value = 'any';
   document.querySelector('#housing-price').value = 'any';
   document.querySelector('#housing-rooms').value = 'any';
@@ -99,3 +103,4 @@ export {showSuccess};
 export {showAlert};
 export {getRandomPositiveInteger};
 export {getRandomPositiveFloat};
+export {getRandomArrayElement};

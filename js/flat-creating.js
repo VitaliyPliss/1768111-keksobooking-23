@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import {getRandomPositiveInteger} from './utils.js';
 import {getRandomPositiveFloat} from './utils.js';
+import { getRandomArrayElement } from './utils.js';
 
 const FLAT_TITLES = ['Уютное место','Ламповая обстановка','Хороший вид'];
 const FLAT_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
@@ -12,11 +14,6 @@ const SIMILAR_FLAT_COUNT = 10;
 const LOCATION_LAT = () => getRandomPositiveFloat(35.65, 35.7, 5);
 const LOCATION_LNG = () => getRandomPositiveFloat(139.7, 139.8, 5);
 
-// генератор массива со случайным количеством неповторяющихся элементов из другого массива
-const getArr = ([...source], maxLength) => Array.from(
-  { length: Math.min(source.length, 1 + Math.random() * maxLength | 0) },
-  () => source.splice(Math.random() * source.length | 0, 1)[0],
-);
 
 const createFlat = () => {
   const ADDRESS_LAT = LOCATION_LAT();
@@ -37,9 +34,9 @@ const createFlat = () => {
       guests: getRandomPositiveInteger(3,15),
       checkin: CHECK_TIMES[getRandomPositiveInteger(0,2)],
       checkout: CHECK_TIMES[getRandomPositiveInteger(0,2)],
-      features: getArr(FEATURES, 6),
+      features: getRandomArrayElement(FEATURES, 6),
       description: 'example of description',
-      photos: getArr(PHOTOS, 3),
+      photos: getRandomArrayElement(PHOTOS, 3),
     },
     location: {
       lat: ADDRESS_LAT,
@@ -47,8 +44,6 @@ const createFlat = () => {
     },
   });};
 
-const similarFlat = () => new Array(SIMILAR_FLAT_COUNT).fill(null).map(() => createFlat());
-// eslint-disable-next-line no-console
+const createSimilarFlat = () => new Array(SIMILAR_FLAT_COUNT).fill(null).map(() => createFlat());
 
 export {createFlat};
-export {similarFlat};

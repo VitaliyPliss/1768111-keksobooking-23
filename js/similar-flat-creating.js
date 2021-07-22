@@ -2,10 +2,25 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable id-length */
 
-const popup = document.querySelector('#map-canvas');
 const template = document.querySelector('#card').content.querySelector('.popup');
-const createNewOffer = function (flat) {
 
+const getOfferRank = (offer) => {
+  const offerType = document.querySelector('#housing-type');
+
+  let rank = 0;
+  if (offer.offer.type === offerType.value) {
+    rank += 1;
+  }
+  return rank;
+};
+
+const compareOffers = (offerA, offerB) => {
+  const rankA = getOfferRank(offerA);
+  const rankB = getOfferRank(offerB);
+  return rankB - rankA;
+};
+
+const createNewOffer = function (flat) {
   //ищем элементы по классу
   const copy = template.cloneNode(true);
   const title = copy.querySelector('.popup__title');
@@ -92,9 +107,8 @@ const createNewOffer = function (flat) {
       }
     }
   }
-
-
   return copy;
 };
 
+export {compareOffers};
 export {createNewOffer};

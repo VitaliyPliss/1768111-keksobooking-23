@@ -143,8 +143,13 @@ const setUserFormSubmit = (onSuccess) => {
     );
   });
 };
-
-
+const offerType = document.querySelector('#housing-type');
+const setOfferTypeClick = (cb) => {
+  offerType.addEventListener('click', () => {
+    cb();
+  });
+};
 export {setUserFormSubmit};
 export {getActiveState};
 export {address};
+export {setOfferTypeClick};
