@@ -1,16 +1,29 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable eqeqeq */
 /* eslint-disable id-length */
 
 const template = document.querySelector('#card').content.querySelector('.popup');
+const DEFAULT = 'any';
 
 const getOfferRank = (offer) => {
   const offerType = document.querySelector('#housing-type');
+  const offerPrice = document.querySelector('#housing-price');
+  const offerRooms = document.querySelector('#housing-rooms');
+  const offerGuests = document.querySelector('#housing-guests');
 
   let rank = 0;
   if (offer.offer.type === offerType.value) {
+    rank += 4;
+  }
+  if (offer.offer.price === offerPrice.value) {
+    rank += 3;
+  }
+  if (offer.offer.rooms === offerRooms.value) {
+    rank += 2;
+  }
+  if (offer.offer.guests === offerGuests.value) {
     rank += 1;
   }
+
   return rank;
 };
 
@@ -59,7 +72,7 @@ const createNewOffer = function (flat) {
   }
   capacity.textContent = `${flat.offer.rooms  } комнаты для ${  flat.offer.guests  } гостей`;
   time.textContent = `Заезд после ${  flat.offer.checkin  } выезд до ${  flat.offer.checkout}`;
-  if (flat.offer.features == undefined) {
+  if (flat.offer.features === undefined) {
     features.classList.add('hidden');
   } else {
     for (let i = 0; i<flat.offer.features.length; i++) {
@@ -91,7 +104,7 @@ const createNewOffer = function (flat) {
   }
   description.textContent = flat.offer.description;
   avatar.src = flat.author.avatar;
-  if (flat.offer.photos == undefined) {
+  if (flat.offer.photos === undefined) {
     photos.classList.add('hidden');
   } else {
     photo[0].src = flat.offer.photos[0];
@@ -110,5 +123,4 @@ const createNewOffer = function (flat) {
   return copy;
 };
 
-export {compareOffers};
-export {createNewOffer};
+export {compareOffers, createNewOffer};

@@ -1,8 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
-import {getRandomPositiveInteger} from './utils.js';
-import {getRandomPositiveFloat} from './utils.js';
-import { getRandomArrayElement } from './utils.js';
+import {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement} from './utils.js';
 
 const FLAT_TITLES = ['Уютное место','Ламповая обстановка','Хороший вид'];
 const FLAT_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
@@ -11,13 +9,12 @@ const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'condit
 const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg', 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const SIMILAR_FLAT_COUNT = 10;
 
-const LOCATION_LAT = () => getRandomPositiveFloat(35.65, 35.7, 5);
-const LOCATION_LNG = () => getRandomPositiveFloat(139.7, 139.8, 5);
-
+const getLocationLat = () => getRandomPositiveFloat(35.65, 35.7, 5);
+const getLocationLng = () => getRandomPositiveFloat(139.7, 139.8, 5);
 
 const createFlat = () => {
-  const ADDRESS_LAT = LOCATION_LAT();
-  const ADDRESS_LNG = LOCATION_LNG();
+  const ADDRESS_LAT = getLocationLat();
+  const ADDRESS_LNG = getLocationLng();
   return({
     author: {
       avatar: ((getRandomPositiveInteger(1,10) >= 10) ?

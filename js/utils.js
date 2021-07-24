@@ -99,8 +99,4 @@ const showAlert = () => {
   });
 };
 
-export {showSuccess};
-export {showAlert};
-export {getRandomPositiveInteger};
-export {getRandomPositiveFloat};
-export {getRandomArrayElement};
+export {showSuccess, showAlert, getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement};

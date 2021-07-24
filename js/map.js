@@ -1,7 +1,5 @@
 /* eslint-disable no-redeclare */
-
-import {getActiveState} from './form.js';
-import {address} from './form.js';
+import {getActiveState, address} from './form.js';
 
 /* global L:readonly */
 const map = L.map('map-canvas')
@@ -39,10 +37,8 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
-
 mainPinMarker.on('moveend', (evt) => {
   address.value = `${evt.target.getLatLng().lat.toFixed(5)  }, ${  evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
-export {map};
-export {mainPinMarker};
+export {map, mainPinMarker};
