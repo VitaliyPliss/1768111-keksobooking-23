@@ -2,11 +2,26 @@
 /* eslint-disable id-length */
 import { showAlert } from './utils.js';
 import { sendData } from './data.js';
+import { map } from './map.js';
+import { debounce } from './utils/debounce.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.getElementsByTagName('fieldset');
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersElements = mapFilters.getElementsByTagName('select');
+const address = document.getElementById('address');
+const timeIn = document.getElementById('timein');
+const timeOut = document.getElementById('timeout');
+const rooms = document.getElementById('room_number');
+const quests = document.getElementById('capacity');
+const title = document.getElementById('title');
+const flatType = document.getElementById('type');
+const price = document.getElementById('price');
+const offerType = document.querySelector('#housing-type');
+const offerPrice = document.querySelector('#housing-price');
+const offerRooms = document.querySelector('#housing-rooms');
+const offerGuests = document.querySelector('#housing-guests');
+const offerFeatures = document.querySelector('#housing-features');
 
 const getInactiveState = function () {
   //скрываем форму заполнения
@@ -14,7 +29,6 @@ const getInactiveState = function () {
   for (let i = 0; i<adFormElements.length; i++) {
     adFormElements[i].setAttribute('disabled', 'disabled');
   }
-
   //скрываем фильтры карты
   mapFilters.classList.add('map__filters--disabled');
   for (let i = 0; i<mapFiltersElements.length; i++) {
@@ -28,7 +42,6 @@ const getActiveState = function () {
   for (let i = 0; i<adFormElements.length; i++) {
     adFormElements[i].removeAttribute('disabled', 'disabled');
   }
-
   //отображаем фильтры карты
   mapFilters.classList.remove('map__filters--disabled');
   for (let i = 0; i<mapFiltersElements.length; i++) {
@@ -38,10 +51,7 @@ const getActiveState = function () {
 
 getInactiveState();
 
-
 //валидация формы
-const flatType = document.getElementById('type');
-const price = document.getElementById('price');
 price.setAttribute('min', 1000);
 
 flatType.addEventListener('change', () => {
@@ -67,11 +77,7 @@ flatType.addEventListener('change', () => {
   }
 });
 
-const address = document.getElementById('address');
 address.value = '35.68212, 139.73957';
-
-const timeIn = document.getElementById('timein');
-const timeOut = document.getElementById('timeout');
 
 timeIn.addEventListener('change', () => {
   timeOut.value = timeIn.value;
@@ -80,9 +86,6 @@ timeIn.addEventListener('change', () => {
 timeOut.addEventListener('change', () => {
   timeIn.value = timeOut.value;
 });
-
-const rooms = document.getElementById('room_number');
-const quests = document.getElementById('capacity');
 
 quests.children[0].setAttribute('disabled', 'disabled');
 quests.children[1].setAttribute('disabled', 'disabled');
@@ -116,11 +119,8 @@ rooms.addEventListener('change', () => {
   }
 });
 
-const title = document.getElementById('title');
-
 title.addEventListener('input', () => {
   const valueLength = title.value.length;
-
   if (valueLength < 30) {
     title.setCustomValidity(`Ещё ${  30 - valueLength } симв.`);
   } else if (valueLength > 100) {
@@ -128,14 +128,12 @@ title.addEventListener('input', () => {
   } else {
     title.setCustomValidity('');
   }
-
   title.reportValidity();
 });
 
 const setUserFormSubmit = (onSuccess) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-
     sendData(
       () => onSuccess(),
       () => showAlert(),
@@ -144,7 +142,35 @@ const setUserFormSubmit = (onSuccess) => {
   });
 };
 
+const setOfferTypeClick = (cb) => {
+  offerType.addEventListener('change', () => {
+    map.closePopup();
+    debounce(cb());
+  });
+};
+const setOfferPriceClick = (cb) => {
+  offerPrice.addEventListener('change', () => {
+    map.closePopup();
+    debounce(cb());
+  });
+};
+const setOfferRoomsClick = (cb) => {
+  offerRooms.addEventListener('change', () => {
+    map.closePopup();
+    debounce(cb());
+  });
+};
+const setOfferGuestsClick = (cb) => {
+  offerGuests.addEventListener('change', () => {
+    map.closePopup();
+    debounce(cb());
+  });
+};
+const setOfferFeaturesClick = (cb) => {
+  offerFeatures.addEventListener('change', () => {
+    map.closePopup();
+    debounce(cb());
+  });
+};
 
-export {setUserFormSubmit};
-export {getActiveState};
-export {address};
+export {setUserFormSubmit, getActiveState, address, setOfferTypeClick, setOfferPriceClick, setOfferRoomsClick, setOfferGuestsClick, setOfferFeaturesClick};

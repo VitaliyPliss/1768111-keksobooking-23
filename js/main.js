@@ -1,36 +1,77 @@
-
-import {map} from './map.js';
-import './data.js';
-import './form.js';
-import {createNewOffer} from './similar-flat-creating.js';
-import {getData} from './data.js';
-import {showSuccess} from './utils.js';
-import {setUserFormSubmit} from './form.js';
+import { map } from './map.js';
+import { setUserFormSubmit, setOfferTypeClick, setOfferPriceClick, setOfferRoomsClick, setOfferGuestsClick, setOfferFeaturesClick } from './form.js';
+import { createNewOffer, compareOffers } from './similar-flat-creating.js';
+import { showSuccess } from './utils.js';
+import { getData } from './data.js';
 
 getData((offers) => {
-  const OFFERS_COUNT = offers.slice(0,10);
-  OFFERS_COUNT.forEach((offer) => {
-    const {lat, lng} = offer.location;
-    const icon = L.icon({
-      iconUrl: './img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+  const drawOffers = () => {
+    offers
+      .slice()
+      .sort(compareOffers)
+      .slice(0, 10)
+      .forEach((offer) => {
+        const { lat, lng } = offer.location;
+        const icon = L.icon({
+          iconUrl: './img/pin.svg',
+          iconSize: [40, 40],
+          iconAnchor: [20, 40],
+        });
+        const marker = L.marker(
+          {
+            lat,
+            lng,
+          },
+          {
+            icon,
+          },
+        );
+        marker.addTo(map).bindPopup(createNewOffer(offer));
+      });
+  };
+
+  const removeOffers = () => {
+    const container = document.querySelector('.leaflet-marker-pane');
+    const elems = container.querySelectorAll('img');
+    elems.forEach((elem, idx) => {
+      if (idx !== 0) {
+        elem.remove();
+      }
     });
+  };
 
-    const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        icon,
-      },
-    );
+  drawOffers();
 
-    marker.addTo(map).bindPopup(createNewOffer(offer));
+  setOfferTypeClick(() => {
+    removeOffers();
   });
 
+  setOfferTypeClick(() => { drawOffers(); });
+
+  setOfferPriceClick(() => {
+    removeOffers();
+  });
+
+  setOfferPriceClick(() => { drawOffers(); });
+
+  setOfferRoomsClick(() => {
+    removeOffers();
+  });
+
+  setOfferRoomsClick(() => { drawOffers(); });
+
+  setOfferGuestsClick(() => {
+    removeOffers();
+  });
+
+  setOfferGuestsClick(() => { drawOffers(); });
+
+  setOfferFeaturesClick(() => {
+    removeOffers();
+  });
+
+  setOfferFeaturesClick(() => { drawOffers(); });
 });
 
-setUserFormSubmit(showSuccess);
 
+setUserFormSubmit(showSuccess);
