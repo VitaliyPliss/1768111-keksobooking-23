@@ -2,26 +2,85 @@
 /* eslint-disable id-length */
 
 const template = document.querySelector('#card').content.querySelector('.popup');
-const DEFAULT = 'any';
 
 const getOfferRank = (offer) => {
-  const offerType = document.querySelector('#housing-type');
-  const offerPrice = document.querySelector('#housing-price');
-  const offerRooms = document.querySelector('#housing-rooms');
-  const offerGuests = document.querySelector('#housing-guests');
+  const filterType = document.querySelector('#housing-type');
+  const filterPrice = document.querySelector('#housing-price');
+  const filterRooms = document.querySelector('#housing-rooms');
+  const filterGuests = document.querySelector('#housing-guests');
+  const filterWifi = document.querySelector('#filter-wifi');
+  const filterDishwasher = document.querySelector('#filter-dishwasher');
+  const filterParking = document.querySelector('#filter-parking');
+  const filterWasher = document.querySelector('#filter-washer');
+  const filterElevator = document.querySelector('#filter-elevator');
+  const filterConditioner = document.querySelector('#filter-conditioner');
+
+  const priceRange = {
+    low: {
+      start: 0,
+      end: 10000,
+    },
+    middle: {
+      start: 10000,
+      end: 50000,
+    },
+    high: {
+      start: 50000,
+      end: 1000000,
+    },
+  };
 
   let rank = 0;
-  if (offer.offer.type === offerType.value) {
-    rank += 4;
+
+  const checkType = () => {
+    if (filterType.value === 'any') { return; }
+    if (offer.offer.type === filterType.value) {
+      rank += 5;
+    }
+  };
+  checkType();
+
+  const checkPrice = () => {
+    if (filterPrice.value === 'any') { return; }
+    if ((offer.offer.price >= priceRange[filterPrice.value].start) && (offer.offer.price <= priceRange[filterPrice.value].end)) {
+      rank += 4;
+    }
+  };
+  checkPrice();
+
+  const checkRooms = () => {
+    if (filterRooms.value === 'any') { return; }
+    if (offer.offer.rooms === +filterRooms.value) {
+      rank += 3;
+    }
+  };
+  checkRooms();
+
+  const checkGuests = () => {
+    if (filterGuests.value === 'any') { return; }
+    if (offer.offer.guests === +filterGuests.value) {
+      rank += 2;
+    }
+  };
+  checkGuests();
+
+  if (offer.offer.features && filterWifi.checked) {
+    offer.offer.features.some((feature) => feature === filterWifi.value) ? rank += 1 : rank;
   }
-  if (offer.offer.price === offerPrice.value) {
-    rank += 3;
+  if (offer.offer.features && filterDishwasher.checked) {
+    offer.offer.features.some((feature) => feature === filterDishwasher.value) ? rank += 1 : rank;
   }
-  if (offer.offer.rooms === offerRooms.value) {
-    rank += 2;
+  if (offer.offer.features && filterParking.checked) {
+    offer.offer.features.some((feature) => feature === filterParking.value) ? rank += 1 : rank;
   }
-  if (offer.offer.guests === offerGuests.value) {
-    rank += 1;
+  if (offer.offer.features && filterWasher.checked) {
+    offer.offer.features.some((feature) => feature === filterWasher.value) ? rank += 1 : rank;
+  }
+  if (offer.offer.features && filterElevator.checked) {
+    offer.offer.features.some((feature) => feature === filterElevator.value) ? rank += 1 : rank;
+  }
+  if (offer.offer.features && filterConditioner.checked) {
+    offer.offer.features.some((feature) => feature === filterConditioner.value) ? rank += 1 : rank;
   }
 
   return rank;
@@ -52,7 +111,7 @@ const createNewOffer = function (flat) {
   //присваеваем значения элементам
   title.textContent = flat.offer.title;
   address.textContent = flat.offer.address;
-  price.textContent = `${flat.offer.price  } ₽/ночь`;
+  price.textContent = `${flat.offer.price} ₽/ночь`;
   switch (flat.offer.type) {
     case 'flat':
       type.textContent = 'Квартира';
@@ -70,12 +129,12 @@ const createNewOffer = function (flat) {
       type.textContent = 'Отель';
       break;
   }
-  capacity.textContent = `${flat.offer.rooms  } комнаты для ${  flat.offer.guests  } гостей`;
-  time.textContent = `Заезд после ${  flat.offer.checkin  } выезд до ${  flat.offer.checkout}`;
+  capacity.textContent = `${flat.offer.rooms} комнаты для ${flat.offer.guests} гостей`;
+  time.textContent = `Заезд после ${flat.offer.checkin} выезд до ${flat.offer.checkout}`;
   if (flat.offer.features === undefined) {
     features.classList.add('hidden');
   } else {
-    for (let i = 0; i<flat.offer.features.length; i++) {
+    for (let i = 0; i < flat.offer.features.length; i++) {
       if (flat.offer.features[i] !== 'wifi') {
         feature[i].classList.remove('popup__feature');
         feature[i].classList.remove('popup__feature--wifi');
@@ -84,11 +143,11 @@ const createNewOffer = function (flat) {
         feature[i].classList.remove('popup__feature');
         feature[i].classList.remove('popup__feature--parking');
       }
-      if (flat.offer.features[i] !== 'dishwasher' ) {
+      if (flat.offer.features[i] !== 'dishwasher') {
         feature[i].classList.remove('popup__feature');
         feature[i].classList.remove('popup__feature--dishwasher');
       }
-      if (flat.offer.features[i] !== 'washer' ) {
+      if (flat.offer.features[i] !== 'washer') {
         feature[i].classList.remove('popup__feature');
         feature[i].classList.remove('popup__feature--washer');
       }
@@ -108,8 +167,8 @@ const createNewOffer = function (flat) {
     photos.classList.add('hidden');
   } else {
     photo[0].src = flat.offer.photos[0];
-    for(let i = 1; i<flat.offer.photos.length; i++) {
-      if(flat.offer.photos[i] !== undefined) {
+    for (let i = 1; i < flat.offer.photos.length; i++) {
+      if (flat.offer.photos[i] !== undefined) {
         const PICTURE = document.createElement('img');
         PICTURE.classList.add('popup__photo');
         PICTURE.alt = 'Фотография жилья';
@@ -123,4 +182,4 @@ const createNewOffer = function (flat) {
   return copy;
 };
 
-export {compareOffers, createNewOffer};
+export { compareOffers, createNewOffer };

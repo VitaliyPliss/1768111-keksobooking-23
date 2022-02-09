@@ -2,6 +2,8 @@
 /* eslint-disable id-length */
 import { showAlert } from './utils.js';
 import { sendData } from './data.js';
+import { map } from './map.js';
+import { debounce } from './utils/debounce.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.getElementsByTagName('fieldset');
@@ -19,6 +21,7 @@ const offerType = document.querySelector('#housing-type');
 const offerPrice = document.querySelector('#housing-price');
 const offerRooms = document.querySelector('#housing-rooms');
 const offerGuests = document.querySelector('#housing-guests');
+const offerFeatures = document.querySelector('#housing-features');
 
 const getInactiveState = function () {
   //скрываем форму заполнения
@@ -141,23 +144,33 @@ const setUserFormSubmit = (onSuccess) => {
 
 const setOfferTypeClick = (cb) => {
   offerType.addEventListener('change', () => {
-    cb();
+    map.closePopup();
+    debounce(cb());
   });
 };
 const setOfferPriceClick = (cb) => {
   offerPrice.addEventListener('change', () => {
-    cb();
+    map.closePopup();
+    debounce(cb());
   });
 };
 const setOfferRoomsClick = (cb) => {
   offerRooms.addEventListener('change', () => {
-    cb();
+    map.closePopup();
+    debounce(cb());
   });
 };
 const setOfferGuestsClick = (cb) => {
   offerGuests.addEventListener('change', () => {
-    cb();
+    map.closePopup();
+    debounce(cb());
+  });
+};
+const setOfferFeaturesClick = (cb) => {
+  offerFeatures.addEventListener('change', () => {
+    map.closePopup();
+    debounce(cb());
   });
 };
 
-export {setUserFormSubmit, getActiveState, address, setOfferTypeClick, setOfferPriceClick, setOfferRoomsClick, setOfferGuestsClick};
+export {setUserFormSubmit, getActiveState, address, setOfferTypeClick, setOfferPriceClick, setOfferRoomsClick, setOfferGuestsClick, setOfferFeaturesClick};
